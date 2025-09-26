@@ -1,6 +1,9 @@
 /*freeRTOS with STMF401RE
 -Familarizing with freeRTOS protocol using STM32CUBEIDE 
 -Just want to showcase basic understanding of semaphores, priorities, and hook functions 
+-For this we have three possible tasks the highest state which simulates an emergency 
+situation(fault in the system), LED tasks which is for user feeedback as well as monitor tasks
+which serves as our low priority and simply monitors background system health ie CPU core heat etc 
 Author: Diego KLish 
 */
 
@@ -203,7 +206,6 @@ void MonitorTask(void *argument)
     if(loop_count % 50 == 0) {
       
       osSemaphoreAcquire(UARTSemaphoreHandle, osWaitForever);
-      printf("MONITOR: === System Status Report ===\n");
       printf("MONITOR: Loop count: %lu\n", loop_count);
       printf("MONITOR: Free heap: %lu bytes\n", g_free_heap_bytes);
       printf("MONITOR: System errors: %lu\n", g_system_errors);
